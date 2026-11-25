@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tes data BMKG</title>
+<style>
+  body { font-family: "Segoe UI", Arial, sans-serif; max-width: 760px; margin: 30px auto; padding: 0 16px; line-height: 1.5; }
+  .row { border: 1px solid #ccd6e0; border-radius: 10px; padding: 12px 14px; margin: 10px 0; }
+  .ok { border-left: 6px solid #2e9a4d; }
+  .gagal { border-left: 6px solid #c0392b; }
+  .tunggu { border-left: 6px solid #999; }
+  code { background: #eef3f8; padding: 1px 6px; border-radius: 4px; word-break: break-all; }
+  small { color: #555; }
+</style>
+</head>
+<body>
+<h1>Tes data BMKG</h1>
+<p>Halaman ini memeriksa apakah browser boleh mengambil data resmi BMKG langsung. Buka lewat Live Server atau klik dua kali, lalu tunggu beberapa detik.</p>
+<div id="hasil"></div>
+<p><small>Kalau ada yang <b>gagal</b> dengan keterangan seperti "Failed to fetch", biasanya itu pemblokiran CORS. Untuk bagian itu, pakai perantara Cloudflare Worker (worker.js).</small></p>
+
+<script>
+var TES = [
+  { nama: "Gempa terkini", url: "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json", ringkas: function (j) {
+      var g = j.Infogempa.gempa; if (Array.isArray(g)) g = g[0];
+      return "M " + g.Magnitude + ", " + g.Wilayah + ", " + g.Tanggal + " " + g.Jam; } },
+  { nama: "Gempa M 5.0+", url: "https://data.bmkg.go.id/DataMKG/TEWS/gempaterkini.json", ringkas: function (j) {
+      var g = j.Infogempa.gempa; return (Array.isArray(g) ? g.length : 1) + " kejadian"; } },
+  { nama: "Prakiraan cuaca (Kemayoran, 31.71.03.1001)", url: "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=31.71.03.1001", ringkas: function (j) {
+      var arr = [].concat.apply([], (j.data && j.data[0] && j.data[0].cuaca) || []);
+      return arr.length + " data prakiraan. Contoh: " + JSON.stringify(arr[0]); } },
+  { nama: "Peringatan dini cuaca (RSS)", url: "https://www.bmkg.go.id/alerts/nowcast/id", teks: true, ringkas: function (t) {
+      return "terbaca " + t.length + " karakter XML"; } }
+];
+var box = document.getElementById("hasil");
+TES.forEach(function (t) {
+  var d = document.createElement("div"); d.className = "row tunggu";
+  d.textContent = t.nama + ": memeriksa...";
+  box.appendChild(d);
+  fetch(t.url)
+    .then(function (r) { if (!r.ok) throw new Error("status " + r.status); return t.teks ? r.text() : r.json(); })
+    .then(function (data) {
+      d.className = "row ok";
+      d.textContent = "BERHASIL: " + t.nama + ". " + t.ringkas(data);
+    })
+    .catch(function (e) {
+      d.className = "row gagal";
+      d.textContent = "GAGAL: " + t.nama + ". " + e.message;
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Peta Gelombang Atmosfer · inaWMS</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+html,body{margin:0;height:100%;font:14px system-ui,sans-serif;background:#111}#map{position:absolute;inset:0}
+.bar{position:absolute;z-index:1000;background:rgba(20,24,30,.88);color:#eee;border-radius:10px;padding:8px 12px}
+#atas{top:10px;left:56px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}#bawah{left:10px;right:10px;bottom:10px}
+select,button{font:inherit;padding:4px 8px;border-radius:6px;border:1px solid #556;background:#222;color:#eee;cursor:pointer}
+#sl{width:100%;margin:6px 0}#sk{height:14px;border-radius:4px}#sks{display:flex;justify-content:space-between;font-size:12px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.lg b{display:inline-block;width:18px;height:0;border-top:3px solid;vertical-align:middle;margin-right:4px}
+.leaflet-popup-content table{border-collapse:collapse}.leaflet-popup-content td{padding:1px 8px 1px 0}
+#cari{position:relative}
+#cari input{width:200px;max-width:45vw;padding:4px 8px;border:1px solid #556;border-radius:6px;background:#1b2430;color:#eee;font:inherit}
+#hasil{position:absolute;top:calc(100% + 4px);left:0;width:300px;max-height:260px;overflow-y:auto;background:#1b2430;border:1px solid #556;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.45);z-index:2000}
+#hasil button{display:block;width:100%;text-align:left;padding:7px 10px;border:0;background:none;color:#eee;font:inherit;font-size:12.5px;line-height:1.35;cursor:pointer}
+#hasil button:hover{background:#0a63b8}
+#hasil .kosong{padding:8px 10px;font-size:12.5px;opacity:.7}
+#kota{position:fixed;right:10px;top:66px;width:380px;max-width:calc(100% - 20px);max-height:calc(100% - 150px);overflow:auto;z-index:1500;background:rgba(20,24,30,.95);color:#eee;border:1px solid #445;border-radius:10px;padding:10px 12px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+#kota[hidden]{display:none}
+.kota-kepala{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.kota-kepala b{font-size:15px}
+#kota-x{border:0;background:none;color:#ccd;font-size:16px;line-height:1;padding:2px 4px}
+#kota-x:hover{color:#fff}
+#kota-meta{font-size:12px;line-height:1.45;opacity:.82;margin:3px 0 7px}
+.kota-atur{display:flex;gap:10px;align-items:center;justify-content:space-between;font-size:12.5px;margin-bottom:7px;flex-wrap:wrap}
+.kota-atur select{padding:2px 6px}
+.kota-atur a{color:#7cc4ff;text-decoration:none;font-size:12.5px}
+.kota-atur a:hover{text-decoration:underline}
+#kota-taut{display:block;background:#fff;border-radius:6px;overflow:hidden;cursor:zoom-in}
+#kota-img{display:block;width:100%;height:auto}
+#kota-gal{font-size:11px;opacity:.65;margin:0 0 6px;line-height:1.4}
+#kota-zoom{position:fixed;inset:0;z-index:3000;background:rgba(8,10,14,.93);display:flex;align-items:center;justify-content:center;padding:16px}
+#kota-zoom[hidden]{display:none}
+#kota-zoom img{max-width:100%;max-height:100%;background:#fff;border-radius:6px}
+#kota-zoom-x{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;font-size:16px}
+@media(max-width:700px){#kota{top:auto;bottom:10px;left:10px;right:10px;width:auto;max-height:72vh;z-index:2500}}
+#full{padding:4px 9px;font-size:15px;line-height:1.2}
+#full.on{background:#0a63b8;border-color:#0a63b8}
+.src{font-size:11px;opacity:.7}
+/* panel filter ala PSIMKG: rata-rata hari + centang komponen gelombang */
+#filter{top:56px;left:10px;max-width:235px;padding:8px 10px;font-size:12.5px}
+#filter .f-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#filter .f-head b{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+#f-toggle{border:0;background:none;color:#9ab;font-size:13px;padding:0 2px;line-height:1}
+#f-toggle:hover{color:#fff}
+#filter .f-label{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;opacity:.7;margin:9px 0 5px}
+#filter .f-ket{text-transform:none;letter-spacing:0;opacity:.85}
+#filter .f-hari{display:flex;gap:5px;flex-wrap:wrap}
+#filter .f-hari button{border-radius:999px;padding:3px 11px;font-size:12px}
+#filter .f-hari button.on{background:#0a63b8;border-color:#0a63b8}
+.f-g{display:flex;align-items:center;gap:7px;padding:2.5px 0;cursor:pointer;user-select:none;line-height:1.3}
+.f-g input{accent-color:#0a63b8;margin:0;flex:none}
+.f-g i{width:15px;height:0;border-top:3px solid;flex:none}
+.f-g i.blok{height:11px;border-top:0;border-radius:2px}
+.f-op{width:100%;margin:2px 0 4px;accent-color:#0a63b8}
+.f-g em{margin-left:auto;font-style:normal;opacity:.6;font-size:10.5px;padding-left:10px;white-space:nowrap}
+.f-all{font-size:11.5px;margin-top:7px}
+.f-all a{color:#7cc4ff;text-decoration:none}
+.f-all a:hover{text-decoration:underline}
+@media(max-width:640px){
+  #filter{top:auto;bottom:118px;max-width:200px;font-size:12px}
+  #filter .f-gel-lab{display:none}
+}
+@media(max-width:640px){
+  .bar{padding:6px 9px}
+  #atas{left:52px;right:8px;gap:6px}
+  #atas>b,#atas #info{display:none}
+  #atas label{font-size:12.5px}
+  #cari{flex:1;min-width:110px}
+  #cari input{width:100%;max-width:none}
+  #hasil{left:auto;right:0;width:min(320px,calc(100vw - 16px))}
+  #bawah{left:8px;right:8px;bottom:8px}
+  .row{gap:6px}
+  .lg{flex-basis:100%;display:flex;gap:8px;overflow-x:auto;white-space:nowrap;padding-bottom:2px}
+  .lg span{white-space:nowrap}
+  .src{font-size:10.5px}
+  .hint{display:none}
+}
+</style></head><body><div id="map"></div>
+<div class="bar" id="atas"><b>inaWMS</b><label>Parameter <select id="prod"></select></label>
+  <div id="cari"><input id="q" type="search" placeholder="Cari lokasi…" autocomplete="off" aria-label="Cari lokasi"><div id="hasil" hidden></div></div>
+  <span id="info"></span><button id="full" type="button" title="Layar penuh" aria-label="Layar penuh">⛶</button></div>
+<div class="bar" id="filter">
+  <div class="f-head"><b>Filter</b><button id="f-toggle" type="button" aria-expanded="true" aria-label="Lipat / buka filter">▾</button></div>
+  <div id="f-isi">
+    <div class="f-label">Rata-rata</div>
+    <div class="f-hari" id="f-hari">
+      <button type="button" data-n="1">1d</button><button type="button" data-n="2">2d</button><button type="button" data-n="3">3d</button><button type="button" data-n="5">5d</button><button type="button" data-n="7" class="on">7d</button>
+    </div>
+    <div class="f-label">Peta dasar</div>
+    <label class="f-g"><input type="checkbox" id="f-batas" checked><i style="border-color:#d7dee6"></i>Penegas batas negara<em>zoom 8 ke bawah</em></label>
+    <label class="f-g"><input type="checkbox" id="f-kisi" checked><i style="border-color:#dfe7ef"></i>Kisi &amp; ekuator</label>
+    <label class="f-g"><input type="checkbox" id="f-mask"><i class="blok" style="background:linear-gradient(90deg,#c98a2e,#12151a)"></i>Gelapkan daratan</label>
+    <div class="f-label">Tebal warna overlay <span class="f-ket" id="f-op-nilai">70%</span></div>
+    <input type="range" id="f-op" class="f-op" min="25" max="95" step="5" value="70">
+    <div class="f-label f-gel-lab">Kontur gelombang <span class="f-ket">penuh = +, putus = −</span></div>
+    <div id="f-gel"></div>
+    <div class="f-all"><a href="#" id="f-all-on">Tampilkan semua</a> · <a href="#" id="f-all-off">Hapus semua</a></div>
+  </div>
+</div>
+<div class="bar" id="bawah"><div class="row"><button id="pr">‹</button><button id="pl">Play</button><button id="nx">›</button><b id="tgl"></b><span id="lg" class="lg"></span></div>
+<input type="range" id="sl" min="0" value="0"><div id="sk"></div><div id="sks"><span id="k1"></span><span>0</span><span id="k2"></span></div>
+<div class="src">Sumber: BMKG (inaWMS). Grid <span id="grid">-</span>. <span class="hint">Klik peta untuk melihat nilai di titik terdekat. Cari lokasi untuk melihat time series kota terdekat.</span></div></div>
+<aside id="kota" hidden>
+  <div class="kota-kepala"><b id="kota-nama">-</b><button id="kota-x" type="button" aria-label="Tutup time series kota">✕</button></div>
+  <div id="kota-meta"></div>
+  <div class="kota-atur"><label>Rata-rata <select id="kota-hari"><option value="1">1 hari</option><option value="3">3 hari</option><option value="7" selected>7 hari</option><option value="10">10 hari</option></select></label><a id="kota-buka" href="#" target="_blank" rel="noopener">Buka di tab baru</a></div>
+  <div id="kota-gal"></div>
+  <div id="kota-taut" role="button" tabindex="0" title="Perbesar"><img id="kota-img" alt="Time series gelombang atmosfer kota"></div>
+</aside>
+<div id="kota-zoom" hidden><img id="kota-zoom-img" alt="Time series gelombang atmosfer kota diperbesar"><button id="kota-zoom-x" type="button" aria-label="Tutup">✕</button></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="js/peta-lib.js"></script>
+<script>
+var P = PetaLib, DIR = "data/peta/", $ = function (i) { return document.getElementById(i); };
+var NAMA = { mjo: "MJO", kelvin: "Kelvin", er: "Equatorial Rossby", low: "Low frequency", mrgtd: "MRG/TD", olr: "OLR anomali", pr_wtr: "PWAT" };
+var WARNA = { mjo: "#000", kelvin: "#2563eb", er: "#e11d48", low: "#7e22ce", mrgtd: "#f59e0b" };
+var map = L.map("map", { preferCanvas: true, center: [-2, 115], zoom: 4, minZoom: 2 });
+// urutan lapisan: tile (200) -> field warna (350) -> mask daratan (360) -> batas negara (380) -> kontur (400) -> label (500)
+map.createPane("isi").style.zIndex = 350;
+map.createPane("mask").style.zIndex = 360;
+map.createPane("batas").style.zIndex = 380;
+// Basemap raster gelap. CARTO Dark (punya PSIMKG) sudah wajib API key, jadi dipakai Esri
+// Dark Gray; detail garis pantai/batas provinsi tile ini yang membuat peta tidak rata.
+var ATTR = "Esri, HERE, Garmin, USGS, Intermap, NRCan, Esri Japan, METI, Esri China (Hong Kong), Esri Korea, Esri (Thailand), NGCC, (c) OpenStreetMap contributors, and the GIS User Community";
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", { attribution: ATTR, maxNativeZoom: 10, maxZoom: 13 }).addTo(map);
+var labelLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}", { maxNativeZoom: 10, maxZoom: 13, pane: "shadowPane" });
+var cache = {}, D = null, t = 0, timer = null, garis = L.layerGroup().addTo(map), gambarTok = 0;
+var BULAN = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+function pendek(s) { var p = s.split("-"); return (+p[2]) + " " + BULAN[+p[1] - 1] + " " + p[0]; }
+var Isi = L.GridLayer.extend({ createTile: function (c) {
+  var cv = L.DomUtil.create("canvas", "leaflet-tile"), s = this.getTileSize(); cv.width = s.x; cv.height = s.y;
+  if (!D || !D.H) return cv;
+  var x = cv.getContext("2d"), S = 4;
+  var f = D.H[D.M.dasar], r = D.M.vars[D.M.dasar].rentang[1];
+  for (var py = 0; py < s.y; py += S) for (var px = 0; px < s.x; px += S) {
+    var ll = map.unproject(L.point(c.x * s.x + px + S / 2, c.y * s.y + py + S / 2), c.z), k = P.warna(P.sampel(f, D.M, 0, ll.lat, ll.lng), r);
+    if (k) { x.fillStyle = "rgba(" + k + ",.62)"; x.fillRect(px, py, S, S); }
+  } return cv; } });
+var isi = new Isi({ pane: "isi", opacity: .7 }).addTo(map);
+labelLayer.addTo(map);
+// overlay setip = detail peta dasar (garis pantai, batas provinsi, pulau kecil) makin terbaca
+$("f-op").oninput = function () { isi.setOpacity(this.value / 100); $("f-op-nilai").textContent = this.value + "%"; };
+
+// Penegas garis negara, mask daratan, dan kisi lintang-bujur sebagai vektor di atas field warna.
+// Rinci 110m untuk zoom jauh, 50m menengah. Mulai zoom 9 garis vektor dilepas:
+// garis pantai rinci dan batas provinsi sudah tersedia di tile CARTO, vektor 50m justru tampak kaku.
+var batasRender = L.canvas({ pane: "batas", padding: 0.5, interactive: false });
+var maskRender = L.canvas({ pane: "mask", padding: 0.5, interactive: false });
+var batasTopo = {}, batasLayer = null, maskLayer = null, batasMinta = 0;
+var maskOn = false, batasOn = true, kisiOn = true;
+function muatTopo(berkas) {
+  if (!batasTopo[berkas])
+    batasTopo[berkas] = fetch("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/" + berkas)
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+  return batasTopo[berkas];
+}
+function pasangBatas() {
+  var z = map.getZoom(), berkas = z >= 6 ? "countries-50m.json" : "countries-110m.json", id = ++batasMinta;
+  var garisAktif = batasOn && z < 9;
+  if (batasLayer) { map.removeLayer(batasLayer); batasLayer = null; }
+  if (maskLayer) { map.removeLayer(maskLayer); maskLayer = null; }
+  if (!garisAktif && !maskOn) return;
+  muatTopo(berkas).then(function (topo) {
+    if (id !== batasMinta) return;
+    var f = window.topojson.feature, darat = f(topo, topo.objects.land);
+    if (maskOn) maskLayer = L.geoJSON(darat, { renderer: maskRender, interactive: false, smoothFactor: 1.5,
+      style: { stroke: false, fillColor: "#12151a", fillOpacity: .6, fill: true } }).addTo(map);
+    if (!garisAktif) return;
+    function vektor(g, gaya) {
+      return L.geoJSON(g, { renderer: batasRender, interactive: false, smoothFactor: 1.5, style: gaya });
+    }
+    batasLayer = L.layerGroup([
+      vektor(f(topo, topo.objects.countries), { color: "#9aa7b4", weight: 1, opacity: .55, fill: false }),
+      vektor(darat, { color: "#d7dee6", weight: 1.5, opacity: .95, fill: false, lineJoin: "round" })
+    ]).addTo(map);
+  }).catch(function () {});
+}
+// kisi: ekuator lebih terang, jajar lintang/bujur tiap 10° samar
+function gayaKisi(terang) {
+  return { renderer: batasRender, color: "#dfe7ef", weight: 1, opacity: terang ? .3 : .12, interactive: false };
+}
+var kisiLayer = L.layerGroup();
+for (var la = -80; la <= 80; la += 10) L.polyline([[la, -360], [la, 360]], gayaKisi(la === 0)).addTo(kisiLayer);
+for (var lo = -360; lo <= 360; lo += 10) L.polyline([[-85, lo], [85, lo]], gayaKisi(false)).addTo(kisiLayer);
+kisiLayer.addTo(map);
+$("f-mask").onchange = function () { maskOn = this.checked; pasangBatas(); };
+$("f-batas").onchange = function () { batasOn = this.checked; pasangBatas(); };
+$("f-kisi").onchange = function () {
+  kisiOn = this.checked;
+  if (kisiOn) kisiLayer.addTo(map); else map.removeLayer(kisiLayer);
+};
+map.on("zoomend", pasangBatas);
+pasangBatas();
+
+function muat(nama) {
+  if (cache[nama]) return Promise.resolve(cache[nama]);
+  return fetch(DIR + nama + "/meta.json").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (M) { return (cache[nama] = M); });
+}
+// satu berkas per tanggal: semua variabel int16 [lat][lon]
+function muatHari(i) {
+  var D0 = D, M = D0.M, k = M.waktu[i].replace(/-/g, "");
+  if (D0.hari[k]) return Promise.resolve(D0.hari[k]);
+  if (D0.janji[k]) return D0.janji[k];
+  var n = M.lat.length * M.lon.length;
+  return (D0.janji[k] = fetch(DIR + D0.nama + "/hari/" + k + ".bin").then(function (r) {
+    if (!r.ok) throw new Error(r.status);
+    return r.arrayBuffer();
+  }).then(function (buf) {
+    var a = new Int16Array(buf), H = {};
+    M.urutan.forEach(function (v, vi) {
+      var sk = M.vars[v].skala, f = new Float32Array(n), o = vi * n;
+      for (var j = 0; j < n; j++) { var x = a[o + j]; f[j] = x === -32768 ? NaN : x / sk; }
+      H[v] = f;
+    });
+    D0.hari[k] = H; D0.urut.push(k);
+    while (D0.urut.length > 40) delete D0.hari[D0.urut.shift()];
+    delete D0.janji[k];
+    return H;
+  }).catch(function (e) { delete D0.janji[k]; throw e; }));
+}
+function siapkan(i) { if (D && i >= 0 && i < D.M.waktu.length) muatHari(i).catch(function () {}); }
+// filter PSIMKG: rata-rata N hari terakhir + komponen gelombang yang ditampilkan
+var rataHari = 7, lihat = {};
+function rentangTeks(M) {
+  var t0 = Math.max(0, t - rataHari + 1);
+  return t0 === t ? pendek(M.waktu[t]) : pendek(M.waktu[t0]) + " – " + pendek(M.waktu[t]);
+}
+function gambar() {
+  var M = D.M, tok = ++gambarTok;
+  $("tgl").textContent = rentangTeks(M); $("sl").value = t;
+  var t0 = Math.max(0, t - rataHari + 1), hari = [];
+  for (var i = t0; i <= t; i++) {
+    if (!D.hari[M.waktu[i].replace(/-/g, "")]) { $("info").textContent = "memuat " + pendek(M.waktu[i]) + (i === t ? "" : " – " + pendek(M.waktu[t])) + "…"; break; }
+  }
+  for (i = t0; i <= t; i++) hari.push(muatHari(i));
+  Promise.all(hari).then(function (daftar) {
+    if (tok !== gambarTok) return;
+    // rata-rata grid N hari (NaN-aware) untuk semua variabel sekaligus
+    var H = {};
+    M.urutan.forEach(function (v) {
+      var n = daftar[0][v].length, acc = new Float32Array(n), hit = new Float32Array(n);
+      daftar.forEach(function (Hd) {
+        var s = Hd[v];
+        for (var j = 0; j < n; j++) { if (!isNaN(s[j])) { acc[j] += s[j]; hit[j]++; } }
+      });
+      var f = new Float32Array(n);
+      for (var j = 0; j < n; j++) f[j] = hit[j] ? acc[j] / hit[j] : NaN;
+      H[v] = f;
+    });
+    D.H = H;
+    garis.clearLayers();
+    M.gelombang.forEach(function (w) {
+      if (lihat[w] === false) return;
+      var th = M.vars[w].ambang;
+      [[th, null], [-th, "6 6"]].forEach(function (lv) {
+        var segs = P.kontur(H[w], M, 0, lv[0]), ls = [];
+        segs.forEach(function (s) { [-360, 0].forEach(function (o) { ls.push([[s[0], s[1] + o], [s[2], s[3] + o]]); }); });
+        L.polyline(ls, { color: WARNA[w], weight: 1.4, dashArray: lv[1], interactive: false, smoothFactor: 0 }).addTo(garis);
+      });
+    });
+    isi.redraw();
+    $("info").textContent = teksInfo(M) + " · rata-rata " + rataHari + " hari";
+    if (kotaAktif) gambarKota();
+    siapkan(t + 1); siapkan(t + 2);
+  }).catch(function () { if (tok === gambarTok) $("info").textContent = "Data " + M.waktu[t] + " gagal dimuat."; });
+}
+$("f-hari").addEventListener("click", function (e) {
+  var b = e.target.closest("button"); if (!b || !D) return;
+  rataHari = +b.dataset.n;
+  this.querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === b); });
+  gambar();
+});
+$("f-gel").addEventListener("change", function (e) {
+  var c = e.target; if (c.type !== "checkbox" || !D) return;
+  lihat[c.dataset.w] = c.checked;
+  gambar();
+});
+$("f-all-on").onclick = function (e) { e.preventDefault(); if (!D) return; setSemuaGelombang(true); };
+$("f-all-off").onclick = function (e) { e.preventDefault(); if (!D) return; setSemuaGelombang(false); };
+function setSemuaGelombang(on) {
+  D.M.gelombang.forEach(function (w) { lihat[w] = on; });
+  $("f-gel").querySelectorAll("input").forEach(function (c) { c.checked = on; });
+  gambar();
+}
+$("f-toggle").onclick = function () {
+  var isi2 = $("f-isi"), lipat = isi2.style.display !== "none";
+  isi2.style.display = lipat ? "none" : "";
+  this.textContent = lipat ? "▸" : "▾";
+  this.setAttribute("aria-expanded", lipat ? "false" : "true");
+};
+function teksInfo(M) {
+  return M.waktu.length.toLocaleString("id-ID") + " hari · " + pendek(M.waktu[0]) + " – " + pendek(M.waktu[M.waktu.length - 1]);
+}
+function pasang(nama) {
+  muat(nama).then(function (M) {
+    D = { nama: nama, M: M, H: null, hari: {}, janji: {}, urut: [] };
+    var r = M.vars[M.dasar].rentang[1], st = P.STOPS;
+    t = Math.max(0, M.waktu.length - 1); $("sl").max = M.waktu.length - 1;
+    $("sk").style.background = "linear-gradient(90deg," + st.map(function (c) { return "rgb(" + c + ")"; }).join(",") + ")";
+    $("k1").textContent = -r; $("k2").textContent = r + " " + M.vars[M.dasar].satuan;
+    $("grid").textContent = Math.abs(M.lat[1] - M.lat[0]).toFixed(1).replace(".", ",") + "°";
+    $("lg").innerHTML = M.gelombang.map(function (w) { return '<span><b style="border-color:' + WARNA[w] + '"></b>' + NAMA[w] + " ±" + M.vars[w].ambang + "</span> "; }).join("");
+    $("f-gel").innerHTML = M.gelombang.map(function (w) {
+      return '<label class="f-g"><input type="checkbox" data-w="' + w + '"' + (lihat[w] === false ? "" : " checked") + '><i style="border-color:' + WARNA[w] + '"></i>' + NAMA[w] + '<em>±' + M.vars[w].ambang + " " + M.vars[w].satuan + "</em></label>";
+    }).join("");
+    $("info").textContent = teksInfo(M);
+    gambar();
+  }).catch(function () { $("info").textContent = "Data belum ada. Jalankan buat_peta_gelombang.py (lihat petunjuk)."; });
+}
+function maju(d) { t = (t + d + D.M.waktu.length) % D.M.waktu.length; gambar(); }
+$("pr").onclick = function () { maju(-1); }; $("nx").onclick = function () { maju(1); };
+$("sl").oninput = function () { t = +this.value; gambar(); };
+$("pl").onclick = function () { if (timer) { clearInterval(timer); timer = null; this.textContent = "Play"; } else { timer = setInterval(function () { maju(1); }, 500); this.textContent = "Jeda"; } };
+$("prod").onchange = function () { pasang(this.value); };
+var fullBtn = $("full"), layarOn = false;
+function setLayar(on) {
+  layarOn = on;
+  fullBtn.textContent = on ? "✕" : "⛶";
+  fullBtn.title = on ? "Keluar layar penuh" : "Layar penuh";
+  fullBtn.setAttribute("aria-label", fullBtn.title);
+  fullBtn.classList.toggle("on", on);
+}
+fullBtn.onclick = function () {
+  if (window.parent !== window) {
+    setLayar(!layarOn);
+    window.parent.postMessage({ tipe: "petaBesar", aktif: layarOn }, location.origin);
+    return;
+  }
+  var k;
+  if (document.fullscreenElement) k = document.exitFullscreen();
+  else k = document.documentElement.requestFullscreen();
+  if (k && k.catch) k.catch(function () {});
+};
+document.addEventListener("fullscreenchange", function () { setLayar(!!document.fullscreenElement); });
+window.addEventListener("message", function (e) {
+  if (e.origin !== location.origin || !e.data || e.data.tipe !== "petaBesar") return;
+  setLayar(!!e.data.aktif);
+});
+function aman(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+function bukaPopup(lat, lon, judul) {
+  if (!D || !D.H) return; var M = D.M, rows = "", n0 = null;
+  [M.dasar].concat(M.gelombang).forEach(function (k) {
+    var h = P.terdekat(D.H[k], M, 0, lat, lon); if (!h) return; n0 = n0 || h;
+    rows += "<tr><td>" + (NAMA[k] || k) + "</td><td><b>" + (isNaN(h.v) ? "-" : h.v.toFixed(2)) + "</b> " + M.vars[k].satuan + "</td></tr>";
+  });
+  if (!n0) return;
+  var kepala = judul ? "<b>" + aman(judul) + "</b><br>" : "";
+  L.popup().setLatLng([lat, lon]).setContent("<div>" + kepala + n0.lat.toFixed(2) + ", " + n0.lon.toFixed(2) + "<br><b>" + M.waktu[t] + "</b></div><table>" + rows + "</table>").openOn(map);
+}
+map.on("click", function (e) { bukaPopup(e.latlng.lat, e.latlng.lng); });
+
+// ---------- time series kota: muncul saat lokasi dicari ----------
+// Gambar tersedia untuk 8 Oktober – 17 November 2026 (sama dengan tab inaWMS).
+var KOTA_DATES = ["20261008", "20261117"];
+var VAR_KOTA = { olr: "OLR", pwat: "PWAT" };
+var posKota = null, kotaAktif = null, kotaHari = 7, kotaSrc = "", kotaMinta = 0;
+var panelKota = $("kota"), imgKota = $("kota-img"), zoomKota = $("kota-zoom");
+var posJanji = fetch("data/gelombang/kota-posisi.json").then(function (r) {
+  if (!r.ok) throw new Error(r.status); return r.json();
+}).then(function (d) { posKota = d; });
+
+function jarakKota(a, b, c, d) {
+  var rad = Math.PI / 180, dLat = (c - a) * rad, dLon = (d - b) * rad;
+  var h = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(a * rad) * Math.cos(c * rad) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  return 6371 * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+}
+function kotaTerdekat(lat, lon) {
+  var best = null;
+  posKota.forEach(function (k) {
+    var j = jarakKota(lat, lon, k.lat, k.lon);
+    if (!best || j < best.jarak) best = { nama: k.nama, lat: k.lat, lon: k.lon, jarak: j };
+  });
+  return best;
+}
+function labelHari(s) { return +s.slice(6, 8) + " " + BULAN[+s.slice(4, 6) - 1] + " " + s.slice(0, 4); }
+function tanggalKota() {
+  var s = D ? D.M.waktu[t].replace(/-/g, "") : KOTA_DATES[KOTA_DATES.length - 1];
+  if (s < KOTA_DATES[0]) s = KOTA_DATES[0];
+  if (s > KOTA_DATES[KOTA_DATES.length - 1]) s = KOTA_DATES[KOTA_DATES.length - 1];
+  return s;
+}
+function varKota() { return D && D.nama === "pwat" ? "pwat" : "olr"; }
+function gambarKota() {
+  if (!kotaAktif) return;
+  var tgl = tanggalKota(), v = varKota();
+  var src = "img/inawms/kota/" + tgl + "/" + v + "-" + kotaAktif.nama + "-" + kotaHari + "days_running_mean.png";
+  $("kota-gal").textContent = "Time series " + VAR_KOTA[v] + " s.d. " + labelHari(tgl) + " · rata-rata " + kotaHari + " hari.";
+  imgKota.alt = "Time series " + VAR_KOTA[v] + " " + kotaAktif.nama + ", rata-rata " + kotaHari + " hari, s.d. " + labelHari(tgl);
+  if (src === kotaSrc) return;
+  kotaSrc = src;
+  imgKota.src = src;
+  $("kota-buka").href = src;
+}
+imgKota.onerror = function () { $("kota-gal").textContent = "Gambar untuk tanggal ini belum tersedia. Coba rata-rata lain."; };
+function tampilKota(lat, lon) {
+  var id = ++kotaMinta;
+  posJanji.then(function () {
+    if (id !== kotaMinta) return;
+    // di luar cakupan peta Indonesia (94–142 BT, 11,5 LS–6,5 LU): time series kota tidak relevan
+    if (lat > 6.5 || lat < -11.5 || lon < 94 || lon > 142) {
+      panelKota.hidden = true; kotaAktif = null;
+      $("info").textContent = "Lokasi di luar cakupan peta Indonesia — time series kota tidak ditampilkan.";
+      return;
+    }
+    var k = kotaTerdekat(lat, lon);
+    if (!k) return;
+    kotaAktif = k; panelKota.hidden = false;
+    $("kota-nama").textContent = k.nama;
+    var jarak = k.jarak < 1 ? Math.round(k.jarak * 1000) + " m" : Math.round(k.jarak) + " km";
+    var catatan = k.jarak > 300 ? "<br>Titik di luar jangkauan kota pengamatan; gambar kota terdekat tetap ditampilkan." : "";
+    $("kota-meta").innerHTML = "Kota terdekat dari titik " + lat.toFixed(2) + ", " + lon.toFixed(2) + " · " + jarak + ".<br>Time series dari tab inaWMS → time series per kota." + catatan;
+    gambarKota();
+  }).catch(function () {
+    if (id !== kotaMinta) return;
+    panelKota.hidden = false; $("kota-nama").textContent = "Time series kota";
+    $("kota-meta").textContent = "Daftar koordinat kota gagal dimuat."; $("kota-gal").textContent = "";
+  });
+}
+$("kota-x").onclick = function () { panelKota.hidden = true; kotaAktif = null; };
+$("kota-hari").onchange = function () { kotaHari = +this.value; gambarKota(); };
+$("kota-taut").onclick = function () {
+  if (!imgKota.getAttribute("src")) return;
+  $("kota-zoom-img").src = imgKota.src; zoomKota.hidden = false;
+};
+$("kota-taut").onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); this.click(); } };
+$("kota-zoom-x").onclick = function () { zoomKota.hidden = true; };
+zoomKota.addEventListener("click", function (e) { if (e.target === zoomKota) zoomKota.hidden = true; });
+document.addEventListener("keydown", function (e) { if (e.key === "Escape") zoomKota.hidden = true; });
+
+
+// pencarian lokasi (Nominatim / OpenStreetMap)
+var kotak = $("q"), daftar = $("hasil"), cariTimer = null, cariMinta = 0;
+function tampilHasil(rs) {
+  daftar.textContent = "";
+  if (!rs.length) {
+    var kosong = document.createElement("div"); kosong.className = "kosong"; kosong.textContent = "Lokasi tidak ditemukan."; daftar.appendChild(kosong);
+  } else {
+    rs.forEach(function (r) {
+      var b = document.createElement("button"); b.type = "button"; b.textContent = r.display_name;
+      b.onclick = function () { pilihLokasi(r); };
+      daftar.appendChild(b);
+    });
+  }
+  daftar.hidden = false;
+}
+function cariLokasi() {
+  var q = kotak.value.trim(); if (q.length < 3) { daftar.hidden = true; return; }
+  var id = ++cariMinta;
+  fetch("https://nominatim.openstreetmap.org/search?format=json&limit=6&accept-language=id&q=" + encodeURIComponent(q))
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (rs) { if (id === cariMinta) tampilHasil(rs); })
+    .catch(function () {
+      if (id !== cariMinta) return;
+      daftar.textContent = "";
+      var d = document.createElement("div"); d.className = "kosong"; d.textContent = "Pencarian gagal — perlu koneksi internet."; daftar.appendChild(d);
+      daftar.hidden = false;
+    });
+}
+function pilihLokasi(r) {
+  daftar.hidden = true;
+  var lat = +r.lat, lon = +r.lon, potong = String(r.display_name).split(","), nama = potong.slice(0, 2).join(",").trim(), sudah = false;
+  function tampilkan() { if (sudah) return; sudah = true; bukaPopup(lat, lon, nama); }
+  kotak.value = potong[0].trim();
+  tampilKota(lat, lon);
+  map.once("moveend", tampilkan);
+  map.flyTo([lat, lon], 8);
+  setTimeout(tampilkan, 1800);
+}
+kotak.addEventListener("input", function () {
+  clearTimeout(cariTimer);
+  if (this.value.trim().length < 3) { daftar.hidden = true; return; }
+  kotaMinta++;   // batalkan panel kota yang masih menunggu, agar tidak menutupi daftar hasil
+  if (!panelKota.hidden) panelKota.hidden = true;
+  cariTimer = setTimeout(cariLokasi, 500);
+});
+kotak.addEventListener("search", function () { if (!this.value.trim()) daftar.hidden = true; });
+kotak.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") { e.preventDefault(); clearTimeout(cariTimer); cariLokasi(); }
+  if (e.key === "Escape") daftar.hidden = true;
+});
+document.addEventListener("click", function (e) { if (!e.target.closest("#cari")) daftar.hidden = true; });
+fetch(DIR + "index.json").then(function (r) { return r.json(); }).then(function (ix) {
+  $("prod").innerHTML = ix.produk.map(function (p) { return '<option value="' + p + '">' + p.toUpperCase() + "</option>"; }).join("");
+  var minta = new URLSearchParams(location.search).get("produk");
+  var awal = ix.produk.indexOf(minta) >= 0 ? minta : ix.produk[0];
+  $("prod").value = awal; pasang(awal);
+}).catch(function () { $("info").textContent = "Data belum ada. Jalankan buat_peta_gelombang.py (lihat petunjuk)."; });
+</script></body></html>

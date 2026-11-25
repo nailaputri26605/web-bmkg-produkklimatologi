@@ -1,0 +1,9 @@
+__pycache__/
+.vscode/
+*.nc
+data/
+hasil/
+*.png
+data/
+hasil/
+*.png

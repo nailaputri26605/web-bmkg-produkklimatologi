@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produk Klimatologi BMKG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+
+<!-- ikon menu -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="6" r="2.5"/><path d="M7 1.5v1M2.5 6h1M3.8 2.8l.7.7M10.2 2.8l-.7.7"/><path d="M7 20h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7 13.2 3.4 3.4 0 0 0 7 20z"/></symbol>
+  <symbol id="i-waves" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/><path d="M2 13c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/><path d="M2 19c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M8 14h2M14 14h2M8 17.5h2"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6.5v13L9 17l6 3 6-2.5v-13L15 7 9 4z"/><path d="M9 4v13M15 7v13"/></symbol>
+</svg>
+
+<div class="app">
+
+  <aside class="side">
+    <div class="brand">
+      <img class="logo" src="img/logo-bmkg.png" alt="Logo BMKG">
+      <div><b>BMKG</b><span>Produk Klimatologi</span></div>
+    </div>
+    <nav role="tablist" aria-label="Menu utama">
+      <button role="tab" data-tab="bmkg" aria-selected="true"><svg class="ico"><use href="#i-cloud"/></svg><span>Info BMKG</span></button>
+      <button role="tab" data-tab="inawms" aria-selected="false"><svg class="ico"><use href="#i-waves"/></svg><span>inaWMS</span></button>
+      <button role="tab" data-tab="inarcm" aria-selected="false"><svg class="ico"><use href="#i-cal"/></svg><span>InaRCM</span></button>
+    </nav>
+    <p class="side-foot">Sumber data: BMKG</p>
+  </aside>
+
+  <div class="content">
+  <main>
+
+  <!-- TAB 1: INFO BMKG -->
+  <section class="panel" id="bmkg">
+    <div class="hero"><h1>Informasi BMKG</h1><p><i class="dot"></i>BMKG &bull; Meteorologi, Klimatologi, Geofisika, dan Modifikasi Cuaca</p></div>
+
+    <details class="panduan">
+      <summary>💡 Panduan untuk pemula: tab ini berisi apa saja?</summary>
+      <p>BMKG membagi layanannya menjadi empat bidang. Tab <b>Info BMKG</b> ini merangkum informasi harian dari keempatnya. Pilih kategori di bawah ini:</p>
+      <ul>
+        <li><b>🌦️ Meteorologi</b> — informasi cuaca sehari-hari: prakiraan cuaca per lokasi (pilih provinsi → kabupaten → kecamatan → desa), peringatan dini cuaca ekstrem (hujan lebat, petir, angin kencang), serta daftar layanan cuaca lain (penerbangan, pelayaran).</li>
+        <li><b>🌍 Klimatologi</b> — informasi iklim jangka panjang (tren musim, kualitas udara) dan pintasan ke produk iklim di website ini: inaWMS (gelombang atmosfer), InaRCM (prakiraan bulanan), dan Peta Gelombang.</li>
+        <li><b>🌋 Geofisika: Gempa &amp; Tsunami</b> — gempa terkini beserta peta guncangan (shakemap), daftar gempa M 5 ke atas, gempa yang dirasakan masyarakat, dan cek gempa terdekat dari lokasi Anda.</li>
+        <li><b>🧭 Geofisika: Seismotek &amp; Tanda Waktu</b> — layanan khusus: rekayasa gempa untuk bangunan tahan gempa, pengamatan medan magnet/gravitasi bumi, dan informasi waktu standar.</li>
+        <li><b>⛅ Modifikasi Cuaca</b> — "any effort to alter artificially the natural phenomena of the atmosphere" <a class="ref" href="https://glossary.ametsoc.org/wiki/Weather_modification" target="_blank" rel="noopener">[AMS]</a><span class="arti">segala upaya untuk mengubah secara buatan fenomena alamiah atmosfer.</span> Di Indonesia dijalankan BMKG untuk kepentingan publik, misalnya pengendalian hujan.</li>
+        <li><b>📄 Laporan</b> — ringkasan data gempa, cuaca, dan peringatan dini dalam satu halaman yang bisa dicetak atau diunduh.</li>
+      </ul>
+      <p class="note">Kata kunci: <b>cuaca</b> = "the state of the atmosphere, mainly with respect to its effects upon life and human activities" <a class="ref" href="https://glossary.ametsoc.org/wiki/Weather" target="_blank" rel="noopener">[AMS]</a><span class="arti">keadaan atmosfer, terutama dikaitkan dengan pengaruhnya terhadap kehidupan dan kegiatan manusia.</span> Di halaman ini cuaca tampil sebagai prakiraan beberapa hari ke depan. <b>iklim</b> = "the slowly varying aspects of the atmosphere–hydrosphere–land surface system... averages... over periods of a month or more" <a class="ref" href="https://glossary.ametsoc.org/wiki/Climate" target="_blank" rel="noopener">[AMS]</a><span class="arti">aspek-aspek yang berubah perlahan dari sistem atmosfer–hidrosfer–permukaan daratan; biasanya dicirikan oleh rata-rata sistem iklim selama periode sebulan atau lebih.</span> Jadi ini pola bulanan hingga tahunan. <b>gempa</b> = getaran bumi akibat pergerakan lempeng (geofisika), datanya dimuat otomatis dari BMKG.</p>
+      <p class="rujukan"><b>Sumber definisi pada panduan ini.</b> Cuaca, iklim, dan modifikasi cuaca dikutip dari entri <a href="https://glossary.ametsoc.org/wiki/Weather" target="_blank" rel="noopener">Weather</a>, <a href="https://glossary.ametsoc.org/wiki/Climate" target="_blank" rel="noopener">Climate</a>, dan <a href="https://glossary.ametsoc.org/wiki/Weather_modification" target="_blank" rel="noopener">Weather modification</a> pada <a href="https://glossary.ametsoc.org/" target="_blank" rel="noopener">Glossary of Meteorology — American Meteorological Society (AMS)</a>. Definisi iklim di sini juga sejalan dengan <a href="https://library.wmo.int/records/item/60113-guide-to-climatological-practices" target="_blank" rel="noopener">WMO Guide to Climatological Practices (WMO-No. 100)</a>: "climate, in a narrow sense, can be defined as the average weather conditions for a particular location and period of time"<span class="arti">iklim, dalam arti sempit, dapat didefinisikan sebagai kondisi cuaca rata-rata untuk suatu lokasi dan periode waktu tertentu.</span> Seluruh tautan layanan menuju halaman spesifik situs resmi <a href="https://www.bmkg.go.id" target="_blank" rel="noopener">BMKG</a> (bukan halaman depan).</p>
+    </details>
+
+    <div class="subtabs" role="tablist" aria-label="Kategori informasi BMKG">
+      <button type="button" role="tab" class="subtab" data-sub="met" aria-selected="true" aria-controls="sub-met">🌦️ Meteorologi</button>
+      <button type="button" role="tab" class="subtab" data-sub="klim" aria-selected="false" aria-controls="sub-klim">🌍 Klimatologi</button>
+      <button type="button" role="tab" class="subtab" data-sub="geo" aria-selected="false" aria-controls="sub-geo">🌋 Geofisika: Gempa &amp; Tsunami</button>
+      <button type="button" role="tab" class="subtab" data-sub="seis" aria-selected="false" aria-controls="sub-seis">🧭 Geofisika: Seismotek &amp; Tanda Waktu</button>
+      <button type="button" role="tab" class="subtab" data-sub="mod" aria-selected="false" aria-controls="sub-mod">⛅ Modifikasi Cuaca</button>
+      <button type="button" role="tab" class="subtab" data-sub="lap" aria-selected="false" aria-controls="sub-lap">📄 Laporan</button>
+    </div>
+
+    <div class="subpanel active" id="sub-met" role="tabpanel">
+
+    <div class="card">
+      <div class="card-head"><h2>📍 Pilih Lokasi</h2></div>
+      <div class="cascade">
+        <select id="w-prov" aria-label="Provinsi"></select>
+        <select id="w-kab" aria-label="Kabupaten atau kota"></select>
+        <select id="w-kec" aria-label="Kecamatan"></select>
+        <select id="w-kel" aria-label="Kelurahan atau desa"></select>
+      </div>
+      <p class="note" id="wilayah-info">Memuat daftar wilayah administrasi Indonesia...</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="tile">🌡️</div><span>Rata-rata suhu</span><strong id="st-suhu">-</strong></div>
+      <div class="stat"><div class="tile">💧</div><span>Rata-rata kelembapan</span><strong id="st-hu">-</strong></div>
+      <div class="stat"><div class="tile">🌬️</div><span>Rata-rata angin</span><strong id="st-angin">-</strong></div>
+      <div class="stat"><div class="tile">🌧️</div><span>Total curah hujan</span><strong id="st-hujan">-</strong></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Cuaca Terbaru</h2><span class="badge" id="cuaca-badge">&#9679; Pilih lokasi</span></div>
+      <h3 id="cuaca-judul"></h3>
+      <div class="cuaca-besar" id="cuaca-besar"></div>
+      <div class="chips days" id="cuaca-hari"></div>
+      <div class="slots" id="cuaca-slot">Pilih provinsi sampai kelurahan atau desa untuk melihat prakiraan.</div>
+      <p class="note" id="cuaca-info"></p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>⚠️ Peringatan Dini Cuaca</h2></div>
+      <div id="peringatan">Memuat data...</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Layanan Meteorologi BMKG</h2></div>
+      <div class="info-grid">
+        <div class="info-card"><h3>☁️ Cuaca Publik</h3>
+          <p>Prakiraan cuaca dan peringatan dini untuk masyarakat. Datanya ditampilkan langsung di halaman ini (pilih lokasi di atas).</p></div>
+        <div class="info-card"><h3>✈️ Cuaca Penerbangan</h3>
+          <p>Informasi cuaca untuk keselamatan penerbangan, seperti angin, jarak pandang, dan awan di bandara (prakiraan 12 jam, METAR/TAF).</p>
+          <a class="btn-link" href="https://www.bmkg.go.id/cuaca/bandara" target="_blank" rel="noopener">Buka Cuaca Bandara BMKG</a></div>
+        <div class="info-card"><h3>🚢 Cuaca Maritim</h3>
+          <p>Informasi tinggi gelombang dan angin di perairan Indonesia untuk pelayaran.</p>
+          <a class="btn-link" href="https://www.bmkg.go.id/cuaca/maritim" target="_blank" rel="noopener">Buka Cuaca Maritim BMKG</a></div>
+      </div>
+    </div>
+    </div><!-- /sub-met -->
+
+    <div class="subpanel" id="sub-klim" role="tabpanel">
+    <div class="card">
+      <div class="card-head"><h2>Klimatologi: Iklim dan Kualitas Udara</h2></div>
+      <div class="info-grid">
+        <div class="info-card"><h3>🌦️ Iklim</h3>
+          <p>Halaman indeks Klimatologi BMKG: buletin analisis hujan, dinamika atmosfer dasarian, prediksi dan perubahan iklim.</p>
+          <a class="btn-link" href="https://www.bmkg.go.id/iklim" target="_blank" rel="noopener">Buka halaman Iklim BMKG</a></div>
+        <div class="info-card"><h3>🍃 Kualitas Udara</h3>
+          <p>Konsentrasi partikulat PM2.5 per kota beserta kategorinya; polutan lain (ozon, SO2, NO2, SPM) tersedia di halaman yang sama.</p>
+          <a class="btn-link" href="https://www.bmkg.go.id/kualitas-udara/pm25" target="_blank" rel="noopener">Buka Kualitas Udara BMKG</a></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Produk iklim di website ini</h2></div>
+      <div class="info-grid">
+        <div class="info-card"><h3>🌊 inaWMS</h3>
+         <p>Prakiraan gelombang atmosfer (CFS): Hovmöller, peta Indonesia, dan time series per kota.</p>           <button type="button" class="btn-link" data-goto="inawms">Buka inaWMS</button></div>
+        <div class="info-card"><h3>📅 InaRCM</h3>
+          <p>Prakiraan curah hujan bulanan beserta animasi bulan prakiraan.</p>
+          <button type="button" class="btn-link" data-goto="inarcm">Buka InaRCM</button></div>
+        <div class="info-card"><h3>🗺️ Peta Gelombang</h3>
+          <p>Peta OLR dan precipitable water harian dengan kontur gelombang atmosfer, interaktif seperti inaWMS resmi.</p>
+          <button type="button" class="btn-link" data-goto="inawms" data-awms-jenis="peta">Buka Peta Gelombang</button></div>
+      </div>
+    </div>
+    </div><!-- /sub-klim -->
+
+    <div class="subpanel" id="sub-geo" role="tabpanel">
+    <div class="card">
+      <div class="card-head"><h2>📡 Lokasi Saya &amp; Gempa Terdekat</h2></div>
+      <div id="lokasi-box">
+        <div class="row" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
+          <button type="button" class="btn-link" id="lokasi-btn">📍 Aktifkan lokasi saya</button>
+          <span class="note" style="margin:0" id="lokasi-status">Lokasi belum aktif.</span>
+        </div>
+        <div id="lokasi-manual" hidden>
+          <div class="cascade" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:8px">
+            <label style="font-size:.8rem;font-weight:600;color:var(--muted)">Lintang (contoh: -6.20 untuk Jakarta)
+              <input type="number" id="lat-manual" step="0.0001" min="-11" max="6" placeholder="-6.20" style="font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)"></label>
+            <label style="font-size:.8rem;font-weight:600;color:var(--muted)">Bujur (contoh: 106.82 untuk Jakarta)
+              <input type="number" id="lon-manual" step="0.0001" min="94" max="142" placeholder="106.82" style="font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)"></label>
+          </div>
+          <button type="button" class="btn-link" id="lokasi-manual-btn">Pakai koordinat ini</button>
+        </div>
+        <div id="gempa-dekat"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>🌋 Gempa Terkini dan Potensi Tsunami</h2></div>
+      <div id="gempa-terkini">Memuat data...</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Gempa M 5.0+ Terbaru</h2></div>
+      <div class="scroll" id="gempa-list">Memuat data...</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Gempa Dirasakan</h2></div>
+      <div class="scroll" id="gempa-dirasakan">Memuat data...</div>
+    </div>
+    </div><!-- /sub-geo -->
+
+    <div class="subpanel" id="sub-seis" role="tabpanel">
+    <div class="card">
+      <div class="card-head"><h2>Geofisika: Seismotek, Geofisika Potensial, dan Tanda Waktu</h2></div>
+      <div class="info-grid">
+        <div class="info-card"><h3>🏗️ Seismologi Teknik (Seismotek)</h3>
+          <p>Kajian guncangan gempa bumi untuk mitigasi dan perencanaan bangunan tahan gempa; halaman resmi memuat hasil mikrozonasi (kerentanan seismik) dan analisis spektral untuk SNI 1726:2019.</p>
+          <a class="btn-link" href="https://www.bmkg.go.id/seismologi-teknik/kerentanan-seismik" target="_blank" rel="noopener">Buka Kerentanan Seismik BMKG</a>
+          <a class="btn-link" href="https://www.bmkg.go.id/seismologi-teknik/analisis-spektral" target="_blank" rel="noopener">Analisis Spektral</a></div>
+        <div class="info-card"><h3>🧲 Geofisika Potensial</h3>
+          <p>Pengamatan medan geofisika bumi: nilai gravitasi (gaya berat) Indonesia, kemagnetan bumi, dan petir real-time.</p>
+          <a class="btn-link" href="https://www.bmkg.go.id/geofisika-potensial/gaya-berat" target="_blank" rel="noopener">Buka Gaya Berat BMKG</a>
+          <a class="btn-link" href="https://www.bmkg.go.id/geofisika-potensial/magnet-bumi" target="_blank" rel="noopener">Magnet Bumi</a></div>
+        <div class="info-card"><h3>🕐 Tanda Waktu</h3>
+          <p>Layanan waktu standar: WIB/WITA/WIT, server NTP, dan waktu terbit/terbenam matahari.</p>
+          <a class="btn-link" href="https://www.bmkg.go.id/tanda-waktu" target="_blank" rel="noopener">Buka Tanda Waktu BMKG</a>
+          <a class="btn-link" href="https://jam.bmkg.go.id/" target="_blank" rel="noopener">Jam Server BMKG</a></div>
+      </div>
+    </div>
+    </div><!-- /sub-seis -->
+
+    <div class="subpanel" id="sub-mod" role="tabpanel">
+    <div class="card">
+      <div class="card-head"><h2>Modifikasi Cuaca</h2></div>
+      <div class="info-grid">
+        <div class="info-card"><h3>⛅ Layanan Modifikasi Cuaca</h3>
+          <p>Upaya mengubah kondisi cuaca agar sesuai kebutuhan, misalnya untuk mitigasi bencana hidrometeorologi. Halaman ini memuat daftar Operasi Modifikasi Cuaca (OMC) yang berjalan; BMKG memiliki Deputi Bidang Modifikasi Cuaca dengan direktorat tata kelola dan operasional.</p>
+          <a class="btn-link" href="https://www.bmkg.go.id/cuaca/modifikasi-cuaca" target="_blank" rel="noopener">Buka Operasi Modifikasi Cuaca BMKG</a></div>
+      </div>
+    </div>
+    </div><!-- /sub-mod -->
+
+    <div class="subpanel" id="sub-lap" role="tabpanel">
+    <div class="card lap" id="lap-isi">Memuat laporan...</div>
+    </div><!-- /sub-lap -->
+    <p class="note">Sumber data: BMKG (data.bmkg.go.id dan bmkg.go.id — tautan kartu menuju halaman spesifiknya). Definisi istilah pada tiap panduan dirujuk ke <a href="https://glossary.ametsoc.org/" target="_blank" rel="noopener">Glossary of Meteorology AMS</a>, <a href="https://wmo.int" target="_blank" rel="noopener">WMO</a>, dan literatur primer yang tercantum di tiap blok panduan.</p>
+  </section>
+
+  <!-- TAB 2: INAWMS -->
+  <section class="panel" id="inawms">
+     <div class="hero"><h1>Gelombang Atmosfer</h1><p><i class="dot"></i>inaWMS &bull; Hovmöller, peta Indonesia, time series per kota, peta gelombang interaktif</p></div>
+    <details class="panduan">
+      <summary>💡 Panduan untuk cara membaca inaWMS</summary>
+      <p><b>Apa itu inaWMS?</b> Sistem pemantauan <b>gelombang ekuator yang terhubung konveksi</b> (convectively coupled equatorial waves/CCEW), yaitu "an equatorially trapped wave in which deep convection is coupled to the wave's large-scale circulation and dynamical field" <a class="ref" href="https://doi.org/10.1029/2008RG000266" target="_blank" rel="noopener">[Kiladis et al. 2009]</a><span class="arti">gelombang yang terperangkap di daerah ekuator, di mana konveksi dalam (awan hujan tebal) terhubung dengan sirkulasi dan medan dinamika skala besar gelombang tersebut.</span> Gelombang ini mengatur sebagian besar hujan tropis, sehingga pantauannya dipakai untuk memperkirakan kapan musim hujan aktif atau tertunda.</p>
+      <h3>📦 Pilihan "Jenis" (bentuk tampilan)</h3>
+      <ul>
+        <li><b>Hovmöller</b> — "a diagram that shows isopleths of atmospheric variation... usually averaged over a band of latitude. Time is usually on one axis, longitude the other" <a class="ref" href="https://glossary.ametsoc.org/wiki/Hovmoller_diagram" target="_blank" rel="noopener">[AMS]</a><span class="arti">diagram yang menampilkan garis-garis sama nilai (isopleth) dari variasi atmosfer, biasanya dirata-ratakan pada satu pita lintang; waktu biasanya menjadi salah satu sumbu dan bujur menjadi sumbu lainnya.</span> Diagram ini diperkenalkan Hovmöller (1949). Di inaWMS, ke bawah = waktu makin baru, sehingga terlihat gelombang merambat ke timur atau ke barat.</li>
+        <li><b>Peta Indonesia</b> — peta sebaran tiap komponen gelombang di wilayah Indonesia. Satu gambar berisi beberapa panel (MJO, Kelvin, ER, dll).</li>
+        <li><b>Time series per kota</b> — grafik perjalanan nilai gelombang untuk 45 kota di Indonesia. Pilih kota, tanggal, dan rata-rata hari pada kolom pilihan.</li>        <li><b>Grafik interaktif per kota</b> — grafik garis harian yang bisa digeser rentang waktunya dan membandingkan dua kota sekaligus.</li>
+        <li><b>Peta gelombang interaktif</b> — peta layar penuh ala PSIMKG: arahkan kursor ke peta untuk membaca nilai, geser slider untuk berpindah tanggal, tekan ▶ untuk animasi.</li>
+      </ul>
+      <h3>🔤 Istilah penting</h3>
+      <ul>
+        <li><b>OLR (Outgoing Longwave Radiation)</b> — "the radiative character of energy radiated from the warmer earth to cooler space, often derived from window channel measurements from satellites in polar orbit" <a class="ref" href="https://glossary.ametsoc.org/wiki/Outgoing_longwave_radiation" target="_blank" rel="noopener">[AMS]</a><span class="arti">sifat radiatif dari energi yang dipancarkan bumi yang lebih hangat ke luar angkasa yang lebih dingin, umumnya diturunkan dari pengukuran kanal jendela satelit berorbit kutub.</span> Awan tebal menghalangi radiasi ini, sehingga nilai <b>rendah</b> = banyak awan/hujan, nilai <b>tinggi</b> = langit bersih.</li>
+        <li><b>Precipitable water (PWAT)</b> — "the total atmospheric water vapor contained in a vertical column of unit cross-sectional area extending between any two specified levels, commonly expressed in terms of the height to which that water substance would stand if completely condensed" <a class="ref" href="https://glossary.ametsoc.org/wiki/Precipitable_water" target="_blank" rel="noopener">[AMS]</a><span class="arti">total uap air atmosfer yang terkandung dalam kolom vertikal berluas penampang satuan di antara dua level tertentu, biasanya dinyatakan sebagai tinggi lapisan air seandainya seluruh uap itu dikondensasikan.</span> Satuannya mm (setara kg/m²); makin tinggi, makin besar bahan baku hujan lebat.</li>
+        <li><b>Anomali</b> — "the deviation of (usually) temperature or precipitation in a given region over a specified period from the long-term average value for the same region" <a class="ref" href="https://glossary.ametsoc.org/wiki/Anomaly" target="_blank" rel="noopener">[AMS]</a><span class="arti">selisih (biasanya suhu atau curah hujan) di suatu wilayah selama periode tertentu terhadap nilai rata-rata jangka panjang untuk wilayah yang sama.</span> Di grafik ini konsepnya dipakai untuk OLR/PWAT; anomali OLR negatif berarti lebih basah dari biasanya.</li>
+        <li><b>Tanggal init</b> — "the state of a time-dependent dynamical system, for instance, an NWP model, at a given time used to start a forecast of the future state of the system" <a class="ref" href="https://glossary.ametsoc.org/wiki/Initial_conditions" target="_blank" rel="noopener">[AMS]</a><span class="arti">keadaan suatu sistem dinamis yang bergantung waktu, misalnya model prakiraan cuaca numerik, pada waktu tertentu yang dipakai untuk memulai prakiraan keadaan sistem di masa datang.</span> Di inaWMS ini tanggal analisis yang menjadi titik awal pengolahan dan prakiraan.</li>
+        <li><b>Pita lintang</b> — irisan peta yang dipilih, misalnya "5S - 5N" berarti 5°Lintang Selatan sampai 5°Lintang Utara (sekitar khatulistiwa); sesuai kaidah diagram Hovmöller yang meratakan nilai dalam satu pita lintang <a class="ref" href="https://glossary.ametsoc.org/wiki/Hovmoller_diagram" target="_blank" rel="noopener">[AMS]</a>.</li>
+        <li><b>Rata-rata</b> — "a smoothed representation of a time series derived by replacing each observed value with a mean value computed over a selected interval" (consecutive mean / running mean) <a class="ref" href="https://glossary.ametsoc.org/wiki/Consecutive_mean" target="_blank" rel="noopener">[AMS]</a><span class="arti">penyajian deret waktu yang diperhalus dengan menggantikan setiap nilai pengamatan oleh nilai rata-rata yang dihitung atas selang yang dipilih.</span> Akibatnya tren lebih mudah dibaca dan fluktuasi harian teredam.</li>
+      </ul>
+      <h3>🌀 Komponen gelombang (apa yang dipantau)</h3>
+      <p>Kelima komponen ini adalah solusi persamaan air dangkal di ekuator (Matsuno 1966) yang terhubung dengan konveksi <a class="ref" href="https://doi.org/10.1029/2008RG000266" target="_blank" rel="noopener">[Kiladis et al. 2009]</a>. Banda penyaring ruang-waktunya berasal dari Wheeler &amp; Kiladis (1999) dan penyempurnaannya; angka di bawah mengikuti tabel banda pada halaman monitoring MJO &amp; Tropical Waves NOAA/CICS-NC <a class="ref" href="https://ncics.org/portfolio/monitor/mjo/" target="_blank" rel="noopener">[CICS-NC]</a> yang mencantumkan sumber primer tiap barisnya. Angka inilah yang membatasi klaim "siklus X hari" pada tiap komponen — bukan taksiran pribadi.</p>
+      <ul>
+        <li><b>MJO (Madden-Julian Oscillation)</b> — "a quasiperiodic oscillation of the near-equatorial troposphere, most noticeable in the zonal wind component in the boundary layer and in the upper troposphere, particularly over the Indian Ocean and the western equatorial Pacific" <a class="ref" href="https://glossary.ametsoc.org/wiki/Madden-Julian_oscillation" target="_blank" rel="noopener">[AMS]</a><span class="arti">oskilasi kuasi-periodik troposfer dekat ekuator, paling nyata pada komponen angin zonal di lapisan batas dan di troposfer atas, terutama di atas Samudra Hindia dan Pasifik ekuator bagian barat.</span> Perioda dominan 30–60 hari dengan bilangan gelombang zonal 1, merambat ke timur <a class="ref" href="https://www.ecmwf.int/sites/default/files/elibrary/2011/17448-simulation-madden-julian-oscillation-and-its-impact-over-europe-ecmwfs-monthly-forecasts.pdf" target="_blank" rel="noopener">[ECMWF, Vitart &amp; Molteni 2010]</a>; banda penyaring operasional 0–9 dengan perioda 30–96 hari <a class="ref" href="https://doi.org/10.1175/JAS3520.1" target="_blank" rel="noopener">[Kiladis et al. 2005]</a>. Fase aktifnya sering membawa hujan lebat ke Indonesia (Madden &amp; Julian 1971, 1972).</li>
+        <li><b>Gelombang Kelvin</b> — "a type of low-frequency gravity wave trapped to a vertical boundary, or the equator, which propagates anticlockwise (in the Northern Hemisphere) around a basin" <a class="ref" href="https://glossary.ametsoc.org/wiki/Kelvin_wave" target="_blank" rel="noopener">[AMS]</a><span class="arti">jenis gelombang gravitasi berfrekuensi rendah yang terperangkap pada batas vertikal, atau pada ekuator, yang merambat berlawanan arah jarum jam (di Belahan Utara) mengelilingi suatu cekungan.</span> Pada banda monitoring: merambat ke timur, bilangan gelombang 1–14, perioda 2.5–17 hari dengan kedalaman ekuivalen 8–90 m <a class="ref" href="https://doi.org/10.1175/1520-0469(2002)059%3C0030:OOACCK%3E2.0.CO;2" target="_blank" rel="noopener">[Straub &amp; Kiladis 2002]</a>.</li>
+        <li><b>Rossby ekuator (ER, n = 1)</b> — Rossby wave adalah "a wave on a uniform current in a two-dimensional nondivergent fluid system, rotating with varying angular speed about the local vertical (beta plane)" <a class="ref" href="https://glossary.ametsoc.org/wiki/Rossby_wave" target="_blank" rel="noopener">[AMS]</a><span class="arti">gelombang pada arus seragam dalam sistem fluida tak-divergen dua dimensi yang berotasi dengan kecepatan sudut yang berubah-ubah terhadap sumbu vertikal lokal (bidang beta).</span> Pada mode ekuator n = 1 sinyal konveksinya merambat ke barat, banda penyaringnya bilangan gelombang 1–10 dengan perioda 9–72 hari <a class="ref" href="https://doi.org/10.1029/2008RG000266" target="_blank" rel="noopener">[Kiladis et al. 2009]</a>.</li>
+        <li><b>MRG (Mixed Rossby-Gravity / gelombang Yanai)</b> — "an eastward propagating equatorial wave that has a meridional velocity component symmetric about the equator and a zonal velocity component anti-symmetric" <a class="ref" href="https://glossary.ametsoc.org/wiki/Mixed_Rossby-gravity_wave" target="_blank" rel="noopener">[AMS]</a><span class="arti">gelombang ekuator yang merambat ke timur, dengan komponen kecepatan meridional yang simetris terhadap ekuator dan komponen kecepatan zonal yang antisimetris.</span> Pada banda monitoring konveksi mode ini justru muncul sebagai sinyal bergerak ke barat, bilangan gelombang 1–10, perioda 3–10 hari <a class="ref" href="https://doi.org/10.1175/1520-0469(1999)056%3C0374%3ACCEWAO%3E2.0.CO;2" target="_blank" rel="noopener">[Wheeler &amp; Kiladis 1999]</a>.</li>
+        <li><b>TD-type (tropical depression-type)</b> — gangguan yang merambat ke barat, bilangan gelombang 6–20, perioda 2.5–5 hari <a class="ref" href="https://doi.org/10.1175/1520-0469(2004)061%3C2105:ACOWIT%3E2.0.CO;2" target="_blank" rel="noopener">[Roundy &amp; Frank 2004]</a>. Hati-hati: ini nama banda gelombang, bukan "depresi tropis" sebagai siklon — yang terakhir didefinisikan AMS sebagai "a tropical cyclone with a closed wind circulation and maximum surface winds up to 17 m s⁻¹ (34 knots)" <a class="ref" href="https://glossary.ametsoc.org/wiki/Tropical_depression" target="_blank" rel="noopener">[AMS]</a><span class="arti">siklon tropis dengan sirkulasi angin tertutup dan angin permukaan maksimum hingga 17 m/s (34 knot).</span> Banda TD-type inilah yang paling sering dikaitkan dengan pembentukan bibit siklon tropis <a class="ref" href="https://doi.org/10.1029/2008RG000266" target="_blank" rel="noopener">[Kiladis et al. 2009]</a>.</li>
+        <li><b>LOW (Low frequency)</b> — banda frekuensi paling rendah di bawah banda MJO pada penyaring ruang-waktu Wheeler &amp; Kiladis (1999, Tabel 1) <a class="ref" href="https://doi.org/10.1175/1520-0469(1999)056%3C0374%3ACCEWAO%3E2.0.CO;2" target="_blank" rel="noopener">[WK99]</a>; dipakai untuk melihat perubahan lambat / pergeseran musim.</li>
+      </ul>
+      <h3>❓ Kalau ada gempa, apa hubungannya dengan inaWMS?</h3>
+      <p><b>Tidak ada hubungan langsung.</b> Gempa bumi berasal dari pergerakan lempeng bumi (geofisika), sedangkan inaWMS memantau udara di atmosfer (meteorologi). Gempa tidak bisa diprediksi dari grafik Hovmöller maupun peta gelombang. Saat terjadi gempa, informasi yang relevan ada di tab <b>Info BMKG → Geofisika: Gempa &amp; Tsunami</b>. Sebaliknya, produk inaWMS dipakai untuk memprediksi <b>cuaca dan musim hujan</b>, bukan bencana geologi.</p>
+      <p class="rujukan"><b>Daftar rujukan definisi &amp; angka di panduan ini.</b> Definisi OLR, precipitable water, anomali, gelombang Kelvin, Rossby, mixed Rossby-gravity, Hovmöller diagram, initial condition, dan consecutive mean diambil dari entri terkait pada <a href="https://glossary.ametsoc.org/" target="_blank" rel="noopener">Glossary of Meteorology — American Meteorological Society (AMS)</a>; kutipan di bawah adalah kutipan pendek dengan tautan ke halaman aslinya. Definisi CCEW/MJO dan arah rambat tiap gelombang dirangkum dari Kiladis et al. (2009), <i>Convectively coupled equatorial waves</i>, Rev. Geophys. 47, RG2003, <a href="https://doi.org/10.1029/2008RG000266" target="_blank" rel="noopener">doi:10.1029/2008RG000266</a>. Banda bilangan gelombang dan perioda penyaring ruang-waktu berasal dari Wheeler &amp; Kiladis (1999), J. Atmos. Sci. 56, 374–399, <a href="https://doi.org/10.1175/1520-0469(1999)056%3C0374%3ACCEWAO%3E2.0.CO;2" target="_blank" rel="noopener">doi:10.1175/1520-0469(1999)056&lt;0374</a>, plus Straub &amp; Kiladis (2002) <a href="https://doi.org/10.1175/1520-0469(2002)059%3C0030:OOACCK%3E2.0.CO;2" target="_blank" rel="noopener">doi:10.1175/1520-0469(2002)059&lt;0030</a>, Kiladis et al. (2005) <a href="https://doi.org/10.1175/JAS3520.1" target="_blank" rel="noopener">doi:10.1175/JAS3520.1</a>, dan Roundy &amp; Frank (2004) <a href="https://doi.org/10.1175/1520-0469(2004)061%3C2105:ACOWIT%3E2.0.CO;2" target="_blank" rel="noopener">doi:10.1175/1520-0469(2004)061&lt;2105</a>; angka operasional yang sama ditayangkan pada halaman monitoring <a href="https://ncics.org/portfolio/monitor/mjo/" target="_blank" rel="noopener">MJO &amp; Tropical Waves NOAA/CICS-NC</a>. Perioda dominan MJO 30–60 hari dirujuk ke ECMWF Newsletter No. 126 (<a href="https://www.ecmwf.int/sites/default/files/elibrary/2011/17448-simulation-madden-julian-oscillation-and-its-impact-over-europe-ecmwfs-monthly-forecasts.pdf" target="_blank" rel="noopener">Vitart &amp; Molteni 2010/11</a>). Produk rujukannya: inaWMS BMKG (<a href="https://www.bmkg.go.id/iklim" target="_blank" rel="noopener">www.bmkg.go.id/iklim</a>).</p>
+    </details>
+
+    <div class="layout">
+      <form id="f-awms" data-jenis="hov">
+        <label data-for="hov map kota">Tanggal init
+          <select name="date" id="awms-date"></select></label>
+        <label>Jenis
+          <select name="jenis" id="awms-jenis">
+            <option value="hov">Hovmöller</option>
+            <option value="map">Peta Indonesia</option>
+               <option value="kota">Time series per kota</option>
+            <option value="interaktif">Grafik interaktif per kota</option>
+            <option value="peta">Peta gelombang interaktif</option>
+          </select></label>
+        <label data-for="hov map kota">Variabel
+          <select name="var" id="awms-var">
+            <option value="olr">OLR</option>
+            <option value="pwat">Precipitable water</option>
+          </select></label>
+        <label data-for="hov">Pita lintang
+          <select name="band" id="awms-band"></select></label>
+        <label data-for="kota">Kota
+          <select name="kota" id="awms-kota"></select></label>
+        
+        <label data-for="map kota">Rata-rata
+          <select name="days" id="awms-days">
+            <option value="1">1 hari</option>
+            <option value="2">2 hari</option>
+            <option value="3">3 hari</option>
+            <option value="5">5 hari</option>
+            <option value="7" selected>7 hari</option>
+            <option value="10">10 hari</option>
+          </select></label>
+        <label data-for="map">Tampilan
+          <select name="wave" id="awms-wave">
+            <option value="all">4 panel</option>
+            <option value="all1">5 panel</option>
+          </select></label>
+      </form>
+      <div class="stage-col">
+        <div class="stage" id="r-awms" aria-live="polite"></div>
+        <p class="note" id="awms-note"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 3: INARCM -->
+  <section class="panel" id="inarcm">
+    <div class="hero"><h1>Prakiraan Bulanan</h1><p><i class="dot"></i>InaRCM &bull; Curah hujan dan suhu udara, 7 bulan ke depan</p></div>
+
+    <details class="panduan">
+      <summary>💡 Panduan untuk cara membaca InaRCM</summary>
+      <p><b>Apa itu InaRCM?</b> <b>Ina</b> = Indonesia, <b>RCM</b> = Regional Climate Model, yaitu "a numerical climate prediction model forced by specified lateral and ocean conditions from a general circulation model (GCM) or observation-based dataset (reanalysis) that simulates atmospheric and land surface processes, while accounting for high-resolution topographical data, land-sea contrasts" <a class="ref" href="https://glossary.ametsoc.org/wiki/Regional_climate_model" target="_blank" rel="noopener">[AMS]</a><span class="arti">model prediksi iklim numerik yang dipaksa oleh kondisi lateral dan kondisi samudra yang ditentukan dari model sirkulasi umum (GCM) atau dataset berbasis observasi (reanalisis); model ini mensimulasikan proses atmosfer dan permukaan daratan sambil memperhitungkan data topografi resolusi tinggi serta kontras darat–laut.</span> InaRCM adalah prakiraan <b>iklim bulanan</b> hasil olahan BMKG — bentuk <i>climate prediction</i>: "generally in the form of probabilities of anomalies of climate variables... with lead times up to several seasons" <a class="ref" href="https://glossary.ametsoc.org/wiki/Climate_prediction" target="_blank" rel="noopener">[AMS]</a><span class="arti">umumnya berwujud probabilitas atas anomali variabel-variabel iklim... dengan waktu jangkau hingga beberapa musim.</span> Ini produk iklim, bukan prakiraan cuaca harian.</p>
+      <h3>📦 Isi form (dari atas ke bawah)</h3>
+      <ul>
+        <li><b>Variabel</b> — apa yang mau dilihat: <b>Curah hujan</b> (mm/bulan), tinggi lapisan air hasil seluruh presipitasi yang terkumpul; presipitasi cair berupa tetesan berdiameter di atas 0.5 mm disebut hujan <a class="ref" href="https://glossary.ametsoc.org/wiki/Rain" target="_blank" rel="noopener">[AMS]</a>. Atau <b>Suhu udara</b> (°C).</li>
+        <li><b>Jenis</b> — bentuk informasinya:
+          <ul>
+            <li><b>Hasil koreksi</b> — nilai prakiraan yang sudah dikoreksi bias modelnya: berapa mm curah hujan (atau berapa °C suhu) yang diperkirakan terjadi.</li>
+            <li><b>Anomali</b> — "the deviation of (usually) temperature or precipitation in a given region over a specified period from the long-term average value for the same region" <a class="ref" href="https://glossary.ametsoc.org/wiki/Anomaly" target="_blank" rel="noopener">[AMS]</a><span class="arti">selisih nilai (biasanya suhu atau presipitasi) di suatu wilayah selama periode tertentu terhadap rata-rata jangka panjang wilayah yang sama.</span> Misalnya +50 mm berarti diperkirakan 50 mm lebih basah dari rata-rata jangka panjangnya.</li>
+            <li><b>Persen anomali</b> — selisih terhadap rata-rata jangka panjang itu dinyatakan dalam persen. Contoh: +40% berarti 40% lebih basah dari biasanya.</li>
+          </ul>
+        </li>
+        <li><b>Bulan inisial</b> — bulan kapan prakiraan ini dibuat. Prakiraan selalu dimulai dari bulan inisial sampai 7 bulan ke depan.</li>
+        <li><b>Kecepatan animasi</b> — seberapa cepat gambar berganti saat tombol putar ditekan.</li>
+      </ul>
+      <h3>▶️ Cara pakai</h3>
+      <ul>
+        <li>Pilih variabel dan jenis, lalu lihat hasilnya pada peta. Warna biru/hijau umumnya berarti lebih basah (atau lebih dingin untuk suhu), cokelat/merah berarti lebih kering (atau lebih panas).</li>
+        <li>Tekan tombol <b>putar</b> (lingkaran merah) untuk melihat animasi perjalanan bulan-bulan prakiraan, atau klik nama bulan di garis waktu untuk melompat ke bulan tertentu.</li>
+        <li>Bulan yang namanya dicoret berarti gambarnya belum tersedia untuk bulan inisial itu.</li>
+      </ul>
+      <p class="note">Bandingkan dengan normal iklim: "the average value of a meteorological element over any fixed period of years that is recognized as a standard for the country and element concerned" <a class="ref" href="https://glossary.ametsoc.org/wiki/Normal" target="_blank" rel="noopener">[AMS]</a><span class="arti">nilai rata-rata suatu unsur meteorologi selama rentang tahun tertentu yang diakui sebagai standar bagi negara dan unsur bersangkutan</span>; WMO menetapkan normal standar 30 tahun (1991–2020) dan memperbaruinya tiap dekade <a class="ref" href="https://library.wmo.int/records/item/60113-guide-to-climatological-practices" target="_blank" rel="noopener">[WMO No. 100, 4.8.1]</a>. Prakiraan iklim bersifat <b>kemungkinan</b>, bukan kepastian — keluarannya probabilitas anomali dan keterampilannya menurun seiring jarak waktu <a class="ref" href="https://glossary.ametsoc.org/wiki/Climate_prediction" target="_blank" rel="noopener">[AMS]</a>.</p>
+      <p class="rujukan"><b>Daftar rujukan definisi di panduan ini.</b> Definisi "regional climate model" dan "climate prediction": entri terkait pada <a href="https://glossary.ametsoc.org/" target="_blank" rel="noopener">Glossary of Meteorology — AMS</a> (<a href="https://glossary.ametsoc.org/wiki/Regional_climate_model" target="_blank" rel="noopener">Regional climate model</a>, <a href="https://glossary.ametsoc.org/wiki/Climate_prediction" target="_blank" rel="noopener">Climate prediction</a>, <a href="https://glossary.ametsoc.org/wiki/Normal" target="_blank" rel="noopener">Normal</a>). Kerangka CORDEX dan dynamical downscaling: <a href="https://library.wmo.int/records/item/11558-addressing-climate-information-needs-at-the-regional-level-the-cordex-framework" target="_blank" rel="noopener">Giorgi, F. (2009), Addressing climate information needs at the regional level: the CORDEX framework, WMO Bulletin 58(3)</a>; riwayat tiga dekade model iklim regional: <a href="https://doi.org/10.1029/2018JD030094" target="_blank" rel="noopener">Amleser et al. (2019), J. Geophys. Res. Atmos., doi:10.1029/2018JD030094</a>. Normal iklim 1991–2020 mengikuti <a href="https://library.wmo.int/records/item/60113-guide-to-climatological-practices" target="_blank" rel="noopener">WMO Guide to Climatological Practices (WMO-No. 100, 2018)</a>. Produk sumber: InaRCM/Prakiraan Curah Hujan BMKG (<a href="https://www.bmkg.go.id/iklim" target="_blank" rel="noopener">www.bmkg.go.id/iklim</a>).</p>
+    </details>
+
+    <div class="layout">
+      <form id="f-rcm">
+        <label>Variabel
+          <select name="var">
+            <option value="prec">Curah hujan</option>
+            <option value="tas">Suhu udara</option>
+          </select></label>
+        <label>Jenis
+          <select name="tipe">
+            <option value="corrected">Hasil koreksi</option>
+            <option value="anomaly">Anomali</option>
+            <option value="percent">Persen anomali</option>
+          </select></label>
+        <label>Bulan inisial
+          <select name="init" id="rcm-init"></select></label>
+        <select name="lead" id="rcm-lead" hidden></select>
+        <label>Kecepatan animasi
+          <select id="rcm-speed">
+            <option value="2000">Lambat</option>
+            <option value="1200" selected>Sedang</option>
+            <option value="600">Cepat</option>
+          </select></label>
+      </form>
+      <div class="stage-col">
+        <div class="stage" id="r-rcm" aria-live="polite"></div>
+        <div class="player" id="rcm-player">
+          <button type="button" class="play-round" id="rcm-play" aria-pressed="false" aria-label="Putar animasi"></button>
+          <div class="timeline" id="rcm-timeline" aria-label="Bulan prakiraan"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+<!-- tampilan gambar diperbesar / layar penuh -->
+<div id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Gambar diperbesar">
+  <div class="lb-bar">
+    <span class="lb-title" id="lb-title"></span>
+    <div class="lb-tools">
+      <button type="button" id="lb-out" aria-label="Perkecil" title="Perkecil (-)">−</button>
+      <span id="lb-pct" aria-live="polite">100%</span>
+      <button type="button" id="lb-in" aria-label="Perbesar" title="Perbesar (+)">+</button>
+      <button type="button" id="lb-fit" title="Pas layar (0)">Pas layar</button>
+      <button type="button" id="lb-full" title="Layar penuh">Layar penuh</button>
+      <button type="button" id="lb-close" aria-label="Tutup" title="Tutup (Esc)">✕ Tutup</button>
+    </div>
+  </div>
+  <div class="lb-view" id="lb-view"><img id="lb-img" alt="" draggable="false"></div>
+  <p class="lb-hint">Scroll untuk zoom, seret untuk menggeser, klik dua kali untuk memperbesar atau kembali pas layar.</p>
+</div>
+
+<script src="script.js?v=3"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="laporan.js"></script>
+</body>
+</html>
